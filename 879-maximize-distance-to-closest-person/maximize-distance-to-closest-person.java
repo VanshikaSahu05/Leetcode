@@ -1,19 +1,26 @@
 class Solution {
-    public static void leftArray(int[] leftarray,int[] seat,int index){
-        leftarray[index] = Integer.MAX_VALUE;
-        for (int i = index - 1; i >= 0; i--) {
-            if (seat[i] == 1) {
-                leftarray[index] = i;
-                break;
+    
+    public static void leftArray(int[] leftarray,int[] seat){
+        int last =-1;
+        for(int i=0;i<seat.length;i++){
+            if(seat[i]==1){
+                last=i;
+                leftarray[i]=i;
+            }
+            else{
+                leftarray[i] = (last==-1)?Integer.MAX_VALUE:last;
             }
         }
     }
-    public static void rightArray(int[] rightarray,int[] seat,int index){
-        rightarray[index] = Integer.MAX_VALUE;
-        for (int i = index + 1; i < seat.length; i++) {
-            if (seat[i] == 1) {
-                rightarray[index] = i;
-                break;
+     public static void rightArray(int[] rightarray,int[] seat){
+        int last =-1;
+        for(int i=seat.length-1;i>=0;i--){
+            if(seat[i]==1){
+                last=i;
+                rightarray[i]=i;
+            }
+            else{
+                rightarray[i] = (last==-1)?Integer.MAX_VALUE:last;
             }
         }
     }
@@ -21,16 +28,9 @@ class Solution {
         int n=seats.length;
         int[] leftarray = new int[n];
         int [] rightarray = new int[n];
-        for(int i=0;i<n;i++){
-            if(seats[i]==1){
-                leftarray[i]=i;
-                rightarray[i]=i;
-            }
-            else{
-                leftArray(leftarray,seats,i);
-                rightArray(rightarray,seats,i);
-            }
-        }
+        leftArray(leftarray,seats);
+        rightArray(rightarray,seats);
+        
         int ans = Integer.MIN_VALUE;
         for(int i=0;i<seats.length;i++){
             if(seats[i]!=1){
@@ -41,3 +41,23 @@ class Solution {
         return ans;
     }
 }
+/*
+public static void leftArray(int[] leftarray,int[] seat,int index){
+        leftarray[index] = Integer.MAX_VALUE;
+        for (int i = index - 1; i >= 0; i--) {
+            if (seat[i] == 1) {
+                leftarray[index] = i;
+                break;
+            }
+        }
+    }
+public static void rightArray(int[] rightarray,int[] seat,int index){
+        rightarray[index] = Integer.MAX_VALUE;
+        for (int i = index + 1; i < seat.length; i++) {
+            if (seat[i] == 1) {
+                rightarray[index] = i;
+                break;
+            }
+        }
+    }
+ */
