@@ -1,37 +1,26 @@
-import java.util.*;
-
 class Solution {
     public String sortVowels(String s) {
-        ArrayList<Character> vowels = new ArrayList<>(Arrays.asList(
+      ArrayList<Character> ls = new ArrayList<>(Arrays.asList(
             'A','E','I','O','U','a','e','i','o','u'
         ));
-        
-        ArrayList<Character> found = new ArrayList<>();
-        
-        // collect vowels
-        for (int i = 0; i < s.length(); i++) {
-            if (vowels.contains(s.charAt(i))) {
-                found.add(s.charAt(i));
+        ArrayList<Character> ans = new ArrayList<>();
+        for(int i=0;i<s.length();i++){
+            if(ls.contains(s.charAt(i))){
+                ans.add(s.charAt(i));
             }
         }
-        
-        // sort vowels
-        Collections.sort(found);
-        
-        // rebuild string
-        StringBuilder t = new StringBuilder();
-        int a = 0; // index for sorted vowels
-        
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (vowels.contains(c)) {
-                t.append(found.get(a));
-                a++;
-            } else {
-                t.append(c);
+        int a=0;
+        String t = "";
+        Collections.sort(ans);
+        for(int i=0;i<s.length();i++){
+            if(ls.contains(s.charAt(i))){
+             t+=ans.get(a);
+              a++;
+            }
+            else{
+                t+=s.charAt(i);
             }
         }
-        
-        return t.toString();
+        return t;
     }
 }
