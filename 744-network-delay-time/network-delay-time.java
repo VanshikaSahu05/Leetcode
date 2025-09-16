@@ -1,42 +1,44 @@
+class pair{
+    int node;
+    int weight;
+    pair(int node,int weight){
+        this.node = node;
+        this.weight = weight;
+    }
+}
 class Solution {
     public int networkDelayTime(int[][] times, int n, int k) {
-ArrayList<ArrayList<int[]>> adj = new ArrayList<>();
-        for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());
-        for (int[] t : times) {
-            adj.get(t[0]).add(new int[]{t[1], t[2]}); 
+        ArrayList<ArrayList<pair>> adj = new ArrayList<>();
+        for(int i=0;i<=n;i++){
+            adj.add(new ArrayList<>());
         }
-
-        int[] dist = new int[n + 1];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        dist[k] = 0;
-
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        pq.add(new int[]{0, k});
-
-        
-        boolean[] visited = new boolean[n + 1];
-
-        while (!pq.isEmpty()) {
-            int[] cur = pq.poll();
-            int time = cur[0], node = cur[1];
-
-            if (visited[node]) continue; 
-            visited[node] = true;
-
-            for (int[] nei : adj.get(node)) {
-                int v = nei[0], w = nei[1];
-                if (dist[v] > time + w) {
-                    dist[v] = time + w;
-                    pq.add(new int[]{dist[v], v});
+        for(int[] d:times){
+            adj.get(d[0]).add(new pair(d[1],d[2]));
+        }
+        PriorityQueue<pair> pq = new PriorityQueue<>((a,b) -> a.weight-b.weight);
+        pq.add(new pair(k,0));
+        int[] dis = new int[n+1];
+        Arrays.fill(dis,(int)1e9);
+        dis[k] = 0;
+        while(!pq.isEmpty()){
+            pair p = pq.remove();
+            int currnode = p.node;
+            int currdis = p.weight;
+            for(pair P:adj.get(currnode)){
+                int neigh = P.node;
+                int newdis = P.weight;
+                if(dis[neigh]>dis[currnode]+newdis){
+                    dis[neigh] = dis[currnode]+newdis;
+                    pq.add(new pair(neigh,dis[neigh]));
                 }
             }
         }
-
         int ans = 0;
         for (int i = 1; i <= n; i++) {
-            if (!visited[i]) return -1; 
-            ans = Math.max(ans, dist[i]);
+            if (dis[i] == (int)1e9) return -1;
+            ans = Math.max(ans, dis[i]);
         }
         return ans;
     }
+
 }
