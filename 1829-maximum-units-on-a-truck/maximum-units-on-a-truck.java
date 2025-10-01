@@ -4,7 +4,6 @@ class Solution {
         int ans =0 ;
         int ind =0;
         while(ind < arr.length && t>0 ){
-            System.out.println("ind" + ind);
            if(arr[ind][0]<=t){
              ans += (arr[ind][0]*arr[ind][1]);
             t = t-arr[ind][0];
