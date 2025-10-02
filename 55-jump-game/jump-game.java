@@ -1,20 +1,11 @@
 class Solution {
     public boolean canJump(int[] nums) {
-        if(nums.length==1){
-            return true;
-        }
-        int currentEle = nums[0];
-        if(currentEle==0){
-            return false;
-        }
+        // here we check the maxjump at every index
+        int maxInd = 0;
         for(int i=0;i<nums.length;i++){
-            currentEle--;
-            if(currentEle<nums[i]){
-                currentEle=nums[i];
-            }
-            else if(currentEle==0 && i!=nums.length-1){
-                return false;
-            }
+            if(maxInd<i) return false;
+            maxInd = Math.max(maxInd,i+nums[i]);
+            
         }
         return true;
     }
