@@ -20,12 +20,12 @@ class Solution {
                 }
             }
             else{
-               if(count5 >0 && count10>0){
-                count5--;
+               if(count10>=1 && count5>=1){
                 count10--;
+                count5--;
                }
-               else if(count5>=3){
-                count5-=3;
+               else if(count5>=3 && count10==0){
+                count5 = count5-3;
                }
                else{
                 return false;
@@ -35,3 +35,16 @@ class Solution {
         return true;
     }
 }
+/*
+if(count5 >0 && count10>0){
+                count5--;
+                count10--;
+               }
+               else if(count5>=3){
+                count5-=3;
+               }
+               else{
+                return false;
+               }
+
+               */
