@@ -1,24 +1,31 @@
 class Solution {
     public boolean canPlaceFlowers(int[] arr, int n) {
-        if(n==0) return true;
-        if(arr.length == 1) return arr[0] == 0 && n<=1;
-        if(arr[0] == 0 && arr[1]!=1){
-            arr[0]=1;
-            n-=1;
+        int N = arr.length-1;
+        if(n == 0){
+            return true;
         }
-        int i=1;
-        while(i<arr.length-1 && n!=0){
-            if(arr[i]!=1 && (arr[i-1]==0 && arr[i+1] ==0)){
-                arr[i] = 1;
-                n-=1;
+        if(arr.length == 1 && arr[0] == 0 && n<=1){
+            return true;
+        }
+        if(arr[0] == 0 && arr[1]==0){
+            arr[0] =1;
+            n--;
+        }
+        for(int i=1;i<arr.length-1;i++){
+            if(n==0){
+                return true;
             }
-            i+=1;
+            if(arr[i] == 0 && arr[i-1] == 0 && arr[i+1] ==0){
+                arr[i]=1;
+                n--;
+            }
+            System.out.println(i);
         }
-        if(n>0 && arr[arr.length-1] == 0 && arr[arr.length-2]!=1){
-            arr[arr.length-1]=1;
-            n-=1;
+        System.out.println(n);
+        if(n>0 && arr[N]==0 && arr[N-1]==0){
+            arr[N] = 1;
+            n--;
         }
-        if(n==0) return true;
-        return false;
+        return n==0?true:false;
     }
 }
