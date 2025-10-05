@@ -1,19 +1,19 @@
 class Solution {
     public long minimumTime(int[] time, int totalTrips) {
-        long minTime = Long.MAX_VALUE;
-        for(int i:time){
-            minTime = Math.min(i,minTime);
+        long minTime = Integer.MAX_VALUE;
+        int n = time.length;
+        for(int i=0;i<n;i++){
+            minTime = Math.min(minTime,time[i]);
         }
-        
-        long start = 1;
-        long end = (long) minTime * totalTrips;;
-        long ans = end;
+        long start=1;
+        long end = minTime*totalTrips;
+        long ans = 0;
         while(start<=end){
-            long mid = start + (end - start) / 2;
-            long t = f(mid,time);
-            if(t>=totalTrips){
-                end = mid-1;
+            long mid = start+(end-start)/2;
+            long trip = check(time,mid);
+            if(trip>=totalTrips){
                 ans = mid;
+                end = mid-1;
             }
             else{
                 start = mid+1;
@@ -21,11 +21,11 @@ class Solution {
         }
         return ans;
     }
-    public static long f(long mid,int[] time){
-        long trip = 0;
-        for(int j:time){
-            trip+=mid/j;
+    public static long check(int[] arr,long time){
+        long totalTrip = 0;
+        for(int i:arr){
+            totalTrip += time/i;
         }
-        return trip;
+        return totalTrip;
     }
 }
