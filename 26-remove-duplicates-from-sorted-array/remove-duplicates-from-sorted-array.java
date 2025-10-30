@@ -3,13 +3,13 @@ class Solution {
         int i=0;
         int j=1;
         while(j<nums.length){
-            if(nums[j]!=nums[j-1]){
-                nums[i] = nums[j-1];
+            if(nums[i]!=nums[j]){
                 i++;
+                nums[i] = nums[j];
+                
             }
             j++;
         }
-        nums[i] = nums[nums.length-1];
         return i+1;
     }
 }
