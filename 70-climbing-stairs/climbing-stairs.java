@@ -1,7 +1,7 @@
 class Solution {
     public static int helper(int n, int[] arr){
-        if(n<=2){
-            return n;
+        if(n<=1){
+            return 1;
         }
         if(arr[n]!=-1){
             return arr[n];
