@@ -1,5 +1,38 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
+        HashSet<List<Integer>> ans = new HashSet<>();
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length-2;i++){
+            int a=i+1;
+            int b=nums.length-1;
+            while(a<b){
+                if(nums[i]+nums[a]+nums[b] == 0){
+                    ArrayList<Integer> ls = new ArrayList<>();
+                    ls.add(nums[i]);
+                    ls.add(nums[a]);
+                    ls.add(nums[b]);
+                    Collections.sort(ls);
+                    ans.add(ls);
+                    a++;
+                }
+                else if(nums[i]+nums[a]+nums[b] > 0){
+                    b--;
+                }
+                else{
+                    a++;
+                }
+            }
+        }
+        List<List<Integer>> ls = new ArrayList<>();
+        for(List<Integer> l:ans){
+            ls.add(l);
+        }
+        return ls;
+    }
+}
+/*
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
         HashSet<List<Integer>> ls = new HashSet<>();
         for(int i=0;i<=nums.length-3;i++){
             HashMap<Integer,Integer> hs = new HashMap<>();
@@ -24,29 +57,4 @@ class Solution {
         return ans;
     }
 }
-// class Solution {
-//     public List<List<Integer>> threeSum(int[] nums) {
-//         HashSet<List<Integer>> ls = new HashSet<>();
-//         int n = nums.length;
-//         for(int i=0;i<n;i++){
-//             HashSet<Integer> hs = new HashSet<>();
-//             for(int j = i+1;j<n;j++){
-//                 int third = -1*(nums[i]+nums[j]);
-//                 if(hs.contains(third)){
-//                     List<Integer> subList = new ArrayList<>();
-//                     subList.add(nums[i]);
-//                     subList.add(nums[j]);
-//                     subList.add(third);
-//                     Collections.sort(subList);
-//                     ls.add(subList);
-//                 }
-//                 hs.add(nums[j]);
-//             }
-//         }
-//         List<List<Integer>> ans = new ArrayList<>();
-//         for(List<Integer> i:ls){
-//             ans.add(i);
-//         }
-//         return ans;
-//     }
-// }
+*/
