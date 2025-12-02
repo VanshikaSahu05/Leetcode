@@ -15,65 +15,34 @@
  */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        // List<List<Integer>> ls = new ArrayList<>();
-        // Queue<TreeNode> qs = new LinkedList<>();
-        // int flag = 0;
-        // if(root==null){
-        //     return ls;
-        // }
-        // qs.add(root);
-        // while(!qs.isEmpty()){
-        //     List<Integer> temp = new ArrayList<>();
-        //     int size = qs.size();
-        //     for(int i=0;i<size;i++){
-        //         if(qs.peek().left!=null){
-        //             qs.add(qs.peek().left);
-        //         }
-        //         if(qs.peek().right!=null){
-        //             qs.add(qs.peek().right);
-        //         }
-        //         temp.add(qs.poll().val);
-        //     }
-        //     if(flag==0){
-        //         ls.add(temp);
-        //         flag=1;
-        //     }
-        //     else{
-        //         Collections.reverse(temp);
-        //         ls.add(temp);
-        //         flag=0;
-        //     }
-        // }
-        // return ls;
-
         List<List<Integer>> ans = new ArrayList<>();
         Queue<TreeNode> qe = new LinkedList<>();
-        int flag = 0;
         if(root == null){
             return ans;
         }
         qe.add(root);
+        boolean rightToLeft = false;
         while(!qe.isEmpty()){
             int size = qe.size();
             ArrayList<Integer> ls = new ArrayList<>();
             for(int i=0;i<size;i++){
-                if(qe.peek().left!=null){
-                    qe.add(qe.peek().left);
+                TreeNode node = qe.remove();
+                if(node.left!=null){
+                    qe.add(node.left);
                 }
-                if(qe.peek().right!=null){
-                    qe.add(qe.peek().right);
+                if(node.right!=null){
+                    qe.add(node.right);
                 }
-                ls.add(qe.poll().val);
+                ls.add(node.val);
             }
-            if(flag==0){
-                ans.add(ls);
-                flag=1;
+            if(rightToLeft){
+                Collections.reverse(ls);
+                rightToLeft = false;
             }
             else{
-                Collections.reverse(ls);
-                ans.add(ls);
-                flag=0;
+                rightToLeft = true;
             }
+            ans.add(ls);
         }
         return ans;
     }
